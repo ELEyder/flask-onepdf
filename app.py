@@ -25,7 +25,11 @@ def generar_pdf():
     html = template.render(nombre=nombre, fecha=fecha, descripcion=descripcion)
 
     # Especificar la ruta de wkhtmltopdf (si no está en el PATH)
-    ruta_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"  # Cambia esto si es necesario
+    if os.name == 'nt':  # 'nt' es para Windows
+        ruta_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
+    else:
+        ruta_wkhtmltopdf = "/usr/local/bin/wkhtmltopdf"
+        
     config = pdfkit.configuration(wkhtmltopdf=ruta_wkhtmltopdf)
 
     # Convertir HTML a PDF
