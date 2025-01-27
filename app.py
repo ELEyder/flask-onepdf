@@ -16,9 +16,9 @@ def generar_pdf():
     nombre = request.form.get("nombre")
     fecha = request.form.get("fecha")
     descripcion = request.form.get("descripcion")
-
+    ruta_plantilla = os.path.join(os.path.dirname(__file__), "templates_pdf", "contrato.html")
     # Cargar plantilla de contrato
-    with open("templates_pdf/contrato.html", "r") as f:
+    with open( ruta_plantilla , "r") as f:
         template = Template(f.read())
 
     # Renderizar plantilla con datos del usuario
