@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, jsonify
 from jinja2 import Template
 import pdfkit
 import os
@@ -37,6 +37,12 @@ def generar_pdf():
         download_name="documento_generado.pdf",
         as_attachment=True,
     )
+
+@app.errorhandler(500)
+def internal_error(error):
+    # Puedes registrar el error aquí, por ejemplo, en un archivo o base de datos
+    app.logger.error(f"Error 500: {error}")
+    return jsonify({"message": "Internal Server Error", "error": str(error)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)
